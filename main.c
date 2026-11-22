@@ -40,26 +40,31 @@ void int_to_str(int num, char* str) {
 }
 
 void hardware_init(void) {
-	// --- JOYSTICK ADC INIT ---
+	// --- JOYSTICK ADC INIT (PF0 = ADC0, PF1 = ADC1) ---
 	ADMUX = (1 << REFS0);
+	ADCSRB &= ~(1 << MUX5); // Select channels 0..7
 	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 
-	// --- JOYSTICK BUTTON INIT (SW) ---
-	DDRD &= ~(1 << PD7);
-	PORTD |= (1 << PD7);
+	// --- JOYSTICK BUTTON INIT (SW -> Pin 7 / PH4) ---
+	DDRH &= ~(1 << PH4);
+	PORTH |= (1 << PH4);
 
-	// --- ULTRASONIC RADAR INIT ---
-	DDRD |= (1 << PD3);
-	DDRB &= ~(1 << PB5);
-	PORTD &= ~(1 << PD3);
+	// --- ULTRASONIC RADAR INIT (Trig -> Pin 3 / PE5, Echo -> Pin 13 / PB7) ---
+	DDRE |= (1 << PE5);
+	DDRB &= ~(1 << PB7);
+	PORTE &= ~(1 << PE5);
 
-	// --- POWER CIRCUIT PIN DIRECTION ---
-	DDRB |= (1 << PB1);
-	DDRB |= (1 << PB0) | (1 << PB4);
-	DDRD |= (1 << PD4) | (1 << PD2);
+	// --- SERVO & SN74HC595 PIN DIRECTION ---
+	DDRH |= (1 << PH6) | (1 << PH5); // Pin 9 (Servo), Pin 8 (74HC595 RCLK)
+	DDRE |= (1 << PE4);              // Pin 2 (74HC595 SER)
+	DDRG |= (1 << PG5);              // Pin 4 (74HC595 SRCLK)
+
+	// --- MPU-6050 INT PIN (Pin 12 / PB6) ---
+	DDRB &= ~(1 << PB6);
 }
 
 uint16_t adc_read(uint8_t channel) {
+	ADCSRB &= ~(1 << MUX5);
 	ADMUX = (ADMUX & 0xF8) | (channel & 0x07);
 	ADCSRA |= (1 << ADSC);
 	while (ADCSRA & (1 << ADSC));
@@ -68,18 +73,18 @@ uint16_t adc_read(uint8_t channel) {
 
 // Precision ASM loop (6 NOPs)
 uint16_t get_distance_raw(void) {
-	PORTD |= (1 << PD3);
+	PORTE |= (1 << PE5);
 	_delay_us(10);
-	PORTD &= ~(1 << PD3);
+	PORTE &= ~(1 << PE5);
 
 	uint32_t timeout = 0;
-	while (!(PINB & (1 << PB5))) {
+	while (!(PINB & (1 << PB7))) {
 		timeout++;
 		if (timeout > 40000) return 0;
 	}
 
 	uint16_t duration = 0;
-	while (PINB & (1 << PB5)) {
+	while (PINB & (1 << PB7)) {
 		duration++;
 		__asm__ __volatile__(
 			"nop \n\t"
@@ -156,8 +161,8 @@ int main(void) {
 			lq_print(&lcd, str_joy_y);
 			lq_print(&lcd, "    ");
 
-			// Event-driven check: Trigger measurement only when SW is pressed (active low)
-			if (!(PIND & (1 << PD7))) {
+			// Event-driven check: Trigger measurement only when SW (PH4) is pressed (active low)
+			if (!(PINH & (1 << PH4))) {
 				lq_print(&lcd, " [SW]  ");
 
 				// Line 2: Process a series of 4 ultrasonic measurements
