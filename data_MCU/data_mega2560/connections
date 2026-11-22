@@ -1,0 +1,51 @@
+ATMEGA2560 (MASTER_MCU)
+	MONITOR (I2C)
+		SDA = 20 (PD1)
+		SCL = 21 (PD0)
+
+	MPU-6050 (I2C)
+		SCL = 21 (PD0)
+		SDA = 20 (PD1)
+		XDA = NC
+		XCL = NC
+		ADO = GND
+		INT = 12 (PB6)
+
+	SWITCH
+		VRX = A0 (PF0)
+		VRY = A1 (PF1)
+		SW = 7 (PH4)
+
+	ECHO_LOCATOR
+		Trig = ~3 (PE5)
+		Echo = 13 (PB7)
+
+	MICRO_SERVO_9g_SG90
+		CONTROL = ~9 (PH6)
+
+	SN74HC595
+		SER = 2 (PE4)
+		SRCLK = 4 (PG5)
+		RCLK = 8 (PH5)
+		QA
+		QB
+		QC
+		QD
+			ULN2003AN_BWQ_2515B
+				INT1 = QA
+				INT2 = QB
+				INT3 = QC
+				INT4 = QD
+		QE = FREE
+		QF = FREE
+		QG = FREE
+		QH = FREE
+		QH' = NC
+
+	SLAVE_MCU_1 (CAM_1 / UART1)
+		RX1 = 19 (PD2) -> Slave TX
+		TX1 = 18 (PD3) -> Slave RX
+
+	SLAVE_MCU_2 (CAM_2 / UART2)
+		RX2 = 17 (PH0) -> Slave TX
+		TX2 = 16 (PH1) -> Slave RX

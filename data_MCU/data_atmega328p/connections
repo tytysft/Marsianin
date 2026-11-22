@@ -1,0 +1,39 @@
+MONITOR
+	SDA = A4
+	SCL = A5
+SWITCH
+	VRX = A0
+	VRY = A1
+	SW = 7
+ECHO_LOCATOR
+	Trig = ~3
+	Echo = 13
+MICRO_SERVO_9g_SG90
+	CONTROL = ~9
+SN74HC595
+	SER = 2
+	SRCLK =
+	RCLK =
+	QA
+	QB
+	QC
+	QD
+	QE
+	QF
+	QG
+	QH
+	QH'
+		ULN2003AN_BWQ_2515B
+			INT1 = QA
+			INT2 = QB
+			INT3 = QC
+			INT4 = QD
+
+MPU-6050
+	SCL =
+	SDA =
+	XDA =
+	XCL =
+	ADO =
+	INT =
+	No connections

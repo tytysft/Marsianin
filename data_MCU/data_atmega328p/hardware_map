@@ -1,0 +1,41 @@
+=== AVR Correct Report ===
+[PORT REGISTERS]
+DDRB:  I/O = 0x04 | Data Space = 0x24
+PORTB: I/O = 0x05 | Data Space = 0x25
+PINB:  I/O = 0x03 | Data Space = 0x23
+DDRC:  I/O = 0x07 | Data Space = 0x27
+PORTC: I/O = 0x08 | Data Space = 0x28
+PINC:  I/O = 0x06 | Data Space = 0x26
+DDRD:  I/O = 0x0A | Data Space = 0x2A
+PORTD: I/O = 0x0B | Data Space = 0x2B
+PIND:  I/O = 0x09 | Data Space = 0x29
+[TIMER 1 REGISTERS (SERVO)]
+TCCR1A: Data Space = 0x80
+TCCR1B: Data Space = 0x81
+TCNT1:  Data Space = 0x84 (16-bit: TCNT1L=0x84, TCNT1H=0x85)
+OCR1A:  Data Space = 0x88 (16-bit: OCR1AL=0x88, OCR1AH=0x89)
+OCR1B:  Data Space = 0x8A (16-bit: OCR1BL=0x8A, OCR1BH=0x8B)
+ICR1:   Data Space = 0x86 (16-bit: ICR1L=0x86, ICR1H=0x87)
+[ADC REGISTERS (JOYSTICK)]
+ADMUX:  Data Space = 0x7C
+ADCSRA: Data Space = 0x7A
+ADC:    Data Space = 0x78 (16-bit: ADCL=0x78, ADCH=0x79)
+[UART REGISTERS (SCANNER BOARD)]
+UBRR0L: Data Space = 0xC4
+UBRR0H: Data Space = 0xC5
+UCSR0A: Data Space = 0xC0
+UCSR0B: Data Space = 0xC1
+UCSR0C: Data Space = 0xC2
+UDR0:   Data Space = 0xC6
+[PROJECT HARDWARE PIN MAP]
+LCD_SDA:      PC4 (Arduino Pin A4)
+LCD_SCL:      PC5 (Arduino Pin A5)
+JOYSTICK_X:   PC0 (Arduino Pin A0)
+JOYSTICK_Y:   PC1 (Arduino Pin A1)
+JOYSTICK_SW:  PD2 (Arduino Pin 2)
+SERVO_PWM:    PB1 (Arduino Pin 9, Timer1 OC1A)
+STEPPER_IN1:  PD4 (Arduino Pin 4)
+STEPPER_IN2:  PD5 (Arduino Pin 5)
+STEPPER_IN3:  PD6 (Arduino Pin 6)
+STEPPER_IN4:  PD7 (Arduino Pin 7)
+=== End ===

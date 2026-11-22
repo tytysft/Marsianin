@@ -1,0 +1,102 @@
+=== AVR Correct Report (ATmega2560) ===
+[PORT REGISTERS]
+DDRA:  I/O = 0x01 | Data Space = 0x21
+PORTA: I/O = 0x02 | Data Space = 0x22
+PINA:  I/O = 0x00 | Data Space = 0x20
+DDRB:  I/O = 0x04 | Data Space = 0x24
+PORTB: I/O = 0x05 | Data Space = 0x25
+PINB:  I/O = 0x03 | Data Space = 0x23
+DDRC:  I/O = 0x07 | Data Space = 0x27
+PORTC: I/O = 0x08 | Data Space = 0x28
+PINC:  I/O = 0x06 | Data Space = 0x26
+DDRD:  I/O = 0x0A | Data Space = 0x2A
+PORTD: I/O = 0x0B | Data Space = 0x2B
+PIND:  I/O = 0x09 | Data Space = 0x29
+DDRE:  I/O = 0x0D | Data Space = 0x2D
+PORTE: I/O = 0x0E | Data Space = 0x2E
+PINE:  I/O = 0x0C | Data Space = 0x2C
+DDRF:  I/O = 0x10 | Data Space = 0x30
+PORTF: I/O = 0x11 | Data Space = 0x31
+PINF:  I/O = 0x0F | Data Space = 0x2F
+DDRG:  I/O = 0x13 | Data Space = 0x33
+PORTG: I/O = 0x14 | Data Space = 0x34
+PING:  I/O = 0x12 | Data Space = 0x32
+DDRH:  I/O = N/A  | Data Space = 0x101
+PORTH: I/O = N/A  | Data Space = 0x102
+PINH:  I/O = N/A  | Data Space = 0x100
+DDRJ:  I/O = N/A  | Data Space = 0x104
+PORTJ: I/O = N/A  | Data Space = 0x105
+PINJ:  I/O = N/A  | Data Space = 0x103
+DDRK:  I/O = N/A  | Data Space = 0x107
+PORTK: I/O = N/A  | Data Space = 0x108
+PINK:  I/O = N/A  | Data Space = 0x106
+DDRL:  I/O = N/A  | Data Space = 0x10A
+PORTL: I/O = N/A  | Data Space = 0x10B
+PINL:  I/O = N/A  | Data Space = 0x109
+
+[TIMER 1 REGISTERS (16-BIT PWM / SERVO)]
+TCCR1A: Data Space = 0x80
+TCCR1B: Data Space = 0x81
+TCNT1:  Data Space = 0x84 (16-bit: TCNT1L=0x84, TCNT1H=0x85)
+OCR1A:  Data Space = 0x88 (16-bit: OCR1AL=0x88, OCR1AH=0x89)
+OCR1B:  Data Space = 0x8A (16-bit: OCR1BL=0x8A, OCR1BH=0x8B)
+OCR1C:  Data Space = 0x8C (16-bit: OCR1CL=0x8C, OCR1CH=0x8D)
+ICR1:   Data Space = 0x86 (16-bit: ICR1L=0x86, ICR1H=0x87)
+
+[TIMER 2 REGISTERS (8-BIT PWM / PIN 9 PH6)]
+TCCR2A: Data Space = 0xB0
+TCCR2B: Data Space = 0xB1
+TCNT2:  Data Space = 0xB2
+OCR2A:  Data Space = 0xB3
+OCR2B:  Data Space = 0xB4
+
+[ADC REGISTERS (JOYSTICK)]
+ADMUX:  Data Space = 0x7C
+ADCSRA: Data Space = 0x7A
+ADCSRB: Data Space = 0x7B
+ADC:    Data Space = 0x78 (16-bit: ADCL=0x78, ADCH=0x79)
+
+[UART0 REGISTERS (USB / DEBUG)]
+UBRR0L: Data Space = 0xC4
+UBRR0H: Data Space = 0xC5
+UCSR0A: Data Space = 0xC0
+UCSR0B: Data Space = 0xC1
+UCSR0C: Data Space = 0xC2
+UDR0:   Data Space = 0xC6
+
+[UART1 REGISTERS (SLAVE_MCU_1 / CAM_1)]
+UBRR1L: Data Space = 0xCC
+UBRR1H: Data Space = 0xCD
+UCSR1A: Data Space = 0xC8
+UCSR1B: Data Space = 0xC9
+UCSR1C: Data Space = 0xCA
+UDR1:   Data Space = 0xCE
+
+[UART2 REGISTERS (SLAVE_MCU_2 / CAM_2)]
+UBRR2L: Data Space = 0xD4
+UBRR2H: Data Space = 0xD5
+UCSR2A: Data Space = 0xD0
+UCSR2B: Data Space = 0xD1
+UCSR2C: Data Space = 0xD2
+UDR2:   Data Space = 0xD6
+
+[PROJECT HARDWARE PIN MAP]
+I2C_SDA (LCD + MPU6050): PD1 (Arduino Pin 20)
+I2C_SCL (LCD + MPU6050): PD0 (Arduino Pin 21)
+MPU6050_INT:             PB6 (Arduino Pin 12)
+JOYSTICK_X:              PF0 (Arduino Pin A0, ADC0)
+JOYSTICK_Y:              PF1 (Arduino Pin A1, ADC1)
+JOYSTICK_SW:             PH4 (Arduino Pin 7)
+SONAR_TRIG:              PE5 (Arduino Pin 3)
+SONAR_ECHO:              PB7 (Arduino Pin 13)
+SERVO_PWM:               PH6 (Arduino Pin 9, Timer2 OC2B) -> or PB5 (Pin 11, Timer1 OC1A)
+SHIFT_SER (74HC595):     PE4 (Arduino Pin 2)
+SHIFT_SRCLK (74HC595):   PG5 (Arduino Pin 4)
+SHIFT_RCLK (74HC595):    PH5 (Arduino Pin 8)
+  -> QA..QD:             ULN2003AN (STEPPER_IN1..IN4)
+  -> QE..QH:             AUX_OUT (FREE)
+SLAVE1_RX1 (CAM_1):      PD2 (Arduino Pin 19)
+SLAVE1_TX1 (CAM_1):      PD3 (Arduino Pin 18)
+SLAVE2_RX2 (CAM_2):      PH0 (Arduino Pin 17)
+SLAVE2_TX2 (CAM_2):      PH1 (Arduino Pin 16)
+=== End ===
