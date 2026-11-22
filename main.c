@@ -1,4 +1,4 @@
-#define F_CPU 16000000UL
+#include "board_config.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include "i2c_master.h"
