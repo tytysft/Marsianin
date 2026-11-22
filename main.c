@@ -1,4 +1,4 @@
-#include "board_config.h"
+#include "./data_MCU/data_mega2560/board_config.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include "i2c_master.h"
