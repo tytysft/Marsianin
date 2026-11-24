@@ -43,3 +43,21 @@ void i2c_master_readByte(uint8_t address, uint8_t* data) {
     
     TWCR = (1 << TWSTO) | (1 << TWEN) | (1 << TWINT);
 }
+void i2c_master_writeReg(uint8_t address, uint8_t reg, uint8_t value) {
+    TWCR = (1 << TWSTA) | (1 << TWEN) | (1 << TWINT);
+    while (!(TWCR & (1 << TWINT)));
+
+    TWDR = (address << 1);
+    TWCR = (1 << TWEN) | (1 << TWINT);
+    while (!(TWCR & (1 << TWINT)));
+
+    TWDR = reg;
+    TWCR = (1 << TWEN) | (1 << TWINT);
+    while (!(TWCR & (1 << TWINT)));
+
+    TWDR = value;
+    TWCR = (1 << TWEN) | (1 << TWINT);
+    while (!(TWCR & (1 << TWINT)));
+
+    TWCR = (1 << TWSTO) | (1 << TWEN) | (1 << TWINT);
+}

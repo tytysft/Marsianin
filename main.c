@@ -1,8 +1,9 @@
-#include "./data_MCU/data_mega2560/board_config.h"
+#include "./data_MCU/mega2560/board_config.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include "i2c_master.h"
 #include "liquid_crystal_i2c.h"
+#include "gyroscope.h"
 
 // LCD string buffers
 char str_joy_x[6];
@@ -131,6 +132,7 @@ int8_t calculate_speed(uint16_t adc_val, uint8_t invert) {
 int main(void) {
 	hardware_init();
 	i2c_master_init();
+	gyro_init();
 	_delay_ms(100);
 
 	LiquidCrystalDevice_t lcd = lq_init(0x27, 16, 2, LCD_5x8DOTS);
